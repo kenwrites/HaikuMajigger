@@ -8,6 +8,7 @@ namespace SyllableCounter
 {
     class UserConsole
     {
+        static ISyllableCounter CounterService;
         static void Main()
         {
             // get words from the user
@@ -31,12 +32,21 @@ namespace SyllableCounter
 
             } // end while
 
-            // send word to syllable-counter service
+            // send words to syllable-counter service
+            List<int> SyllableCounts = CounterService.Count(WordList);
 
             // on receiving syllable count, output to user
+            Console.WriteLine("Your words have this many syllables: ");
+            int i = 0;
+            int counts = SyllableCounts.Count;
 
-            // repeat until user enters 'quit'
-        }
+            while (i < counts)
+            {
+                Console.WriteLine(WordList[i] + " has " + SyllableCounts[i] + " syllables.");
+                i += 1;
+            }
+
+        } // end Main()
     } // end UserConsole
 
     //public class WordList : IWords
@@ -56,7 +66,7 @@ namespace SyllableCounter
 
     interface ISyllableCounter
     {
-        int[] Count(List<string> WordsToCount);
+        List<int> Count(List<string> Words);
     }
 
 }  // end namespace
