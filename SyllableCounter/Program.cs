@@ -8,7 +8,7 @@ namespace SyllableCounter
 {
     class UserConsole
     {
-        static ISyllableCounter CounterService;
+        static readonly ISyllableCounter CounterService = new CounterService();
         static void Main()
         {
             // get words from the user
@@ -46,6 +46,8 @@ namespace SyllableCounter
                 i += 1;
             }
 
+            string pause = Console.ReadLine();
+
         } // end Main()
     } // end UserConsole
 
@@ -64,9 +66,6 @@ namespace SyllableCounter
     //    List<string> Words { get; set; }
     //}
 
-    interface ISyllableCounter
-    {
-        List<int> Count(List<string> Words);
-    }
+
 
 }  // end namespace
