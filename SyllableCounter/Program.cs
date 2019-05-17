@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
-    class UserConsole
+    class Program
     {
         static readonly ISyllableCounter CounterService = new CounterService();
         static void Main()
@@ -15,57 +15,45 @@ namespace SyllableCounter
 
             List<string> WordList = new List<string>();
 
-            Console.WriteLine("Enter words for which you want to count syllables.  Hit \"enter\" between each.  Write \"quit\" after you last word.");
+            Console.WriteLine("Enter words for which you want to count syllables.  Hit \"enter\" between each.  Write \"count\" after you last word.");
 
-            while (true)
+            const int maxWords = 100;
+
+            do
             {
                 string NewWord = Console.ReadLine();
-                
-                if (NewWord.ToLower() == "quit")
+                if (NewWord.ToLower() == "count")
                 {
                     break;
                 }
                 else
                 {
-                     WordList.Add(NewWord);
+                    WordList.Add(NewWord);
                 }
-
-            } // end while
+            }
+            while (WordList.Count() < maxWords);
 
             // send words to syllable-counter service
-            List<int> SyllableCounts = CounterService.Count(WordList);
+            List<int> SyllableCounts = CounterService.Count(WordList, 1);
 
             // on receiving syllable count, output to user
-            Console.WriteLine("Your words have this many syllables: ");
-            int i = 0;
-            int counts = SyllableCounts.Count;
 
-            while (i < counts)
+            if (SyllableCounts.Count() == WordList.Count())
             {
-                Console.WriteLine(WordList[i] + " has " + SyllableCounts[i] + " syllables.");
-                i += 1;
+                Console.WriteLine("Your words have this many syllables: ");
+
+                for (int i = 0; i < SyllableCounts.Count; i++)
+                {
+                    Console.WriteLine(WordList[i] + " has " + SyllableCounts[i] + " syllables.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("We're sorry:  There was a problem with the syllable counter.");
             }
 
             string pause = Console.ReadLine();
 
         } // end Main()
-    } // end UserConsole
-
-    //public class WordList : IWords
-    //{
-    //    List<string> _words;
-    //    public List<string> Words;
-    //    //{
-    //    //    get => _words;
-    //    //    set => _words = value;
-    //    //}
-    //}
-
-    //interface IWords
-    //{
-    //    List<string> Words { get; set; }
-    //}
-
-
-
+    } // end Program
 }  // end namespace

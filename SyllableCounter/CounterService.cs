@@ -8,22 +8,32 @@ namespace SyllableCounter
 {
     class CounterService : ISyllableCounter
     {
-        public List<int> Count(List<string> Words)
+        private readonly Model _model1 = new Model();
+        private readonly Model _model2 = new Model();
+        private readonly Model _model3 = new Model();
+        public List<int> Count(List<string> Words, int ?method = 1)
         {
-            int length = Words.Count();
-            var counts = new List<int>();
-            int i = 0;
-            while (i < length)
+            if (method == 1)
             {
-                counts.Add(2);
-                i += 1;
+                return _model1.Count(Words);
+            } else if ( method == 2)
+            {
+                return _model2.Count(Words);
             }
-            return counts;
+            else if (method == 3)
+            {
+                return _model3.Count(Words);
+            }
+            else
+            {
+                Console.WriteLine(method + " is not a valid method.  Enter a whole number from 1 to 3.");
+                return new List<int>();   
+            }
         }
     }
 
     interface ISyllableCounter
     {
-        List<int> Count(List<string> Words);
+        List<int> Count(List<string> Words, int ?method);
     }
 }
