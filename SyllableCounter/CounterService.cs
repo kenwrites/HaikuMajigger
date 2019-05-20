@@ -8,17 +8,17 @@ namespace SyllableCounter
 {
     class CounterService : ISyllableCounter
     {
-        private readonly Model _model1 = new Model();
-        private readonly Model _model2 = new Model();
+        private readonly Model _modelSim = new Model();
+        private readonly Model _modelWritten = new Model();
         private readonly Model _model3 = new Model();
         public List<int> Count(List<string> Words, int ?method = 1)
         {
             if (method == 1)
             {
-                return _model1.Count(Words);
+                return _modelSim.Count(Words);
             } else if ( method == 2)
             {
-                return _model2.Count(Words);
+                return _modelWritten.Count(Words);
             }
             else if (method == 3)
             {

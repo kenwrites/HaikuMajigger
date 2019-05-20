@@ -34,6 +34,7 @@ namespace SyllableCounter
             while (WordList.Count() < maxWords);
 
             // send words to syllable-counter service
+
             List<int> SyllableCounts = CounterService.Count(WordList, 1);
 
             // on receiving syllable count, output to user
