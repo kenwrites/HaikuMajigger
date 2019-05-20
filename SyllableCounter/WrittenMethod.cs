@@ -16,35 +16,45 @@ namespace SyllableCounter
 
         public override List<int> Count(List<string> Words)
         {
-            Regex vowel = new Regex("[aeiou]", RegexOptions.IgnoreCase);
+            Regex vowel = new Regex("[aeiou]");
+            Regex tripthong = new Regex("[aeiou]{3}");
+            Regex dipthong = new Regex("[aeiou]{2}");
 
             List<int> Counts = new List<int>();
             foreach (string word in Words)
             {
-                int vowelCount = 0;
+                int syllables = 0;
 
                 // Count AEIOU
 
                 for (int i = 0; i < word.Count(); i++)
                 {
-                    vowelCount = vowel.Matches(word).Count;
+                    syllables = vowel.Matches(word).Count;
                 }
 
                 // Count word-ending Y
 
                 if (word.EndsWith("y"))
                 {
-                    vowelCount += 1;
+                    syllables += 1;
                 }
 
                 // Subtract word-ending E
 
                 if (word.EndsWith("e"))
                 {
-                    vowelCount += 1;
+                    syllables += 1;
                 }
 
-                Counts.Add(vowelCount);
+                // Subtract dipthongs and tripthongs (when 2 or 3 vowels make only 1 sound, like the "ea" in "heaven")               
+
+                int dipthongs = dipthong.Matches(word).Count;
+                int tripthongs = tripthong.Matches(word).Count;
+                syllables = syllables - (dipthongs - tripthongs) - (tripthongs * 2);
+
+                // Record syllable count for this word in Counts list
+
+                Counts.Add(syllables);
 
             } // end foreach Word
 
