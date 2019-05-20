@@ -8,8 +8,8 @@ namespace SyllableCounter
 {
     class CounterService : ISyllableCounter
     {
-        private readonly Model _modelSim = new Model();
-        private readonly Model _modelWritten = new Model();
+        private readonly Model _modelSim = new Model();  // simulates counting syllables.  For testing only.
+        private readonly Model _modelWritten = new WrittenMethod(); 
         private readonly Model _model3 = new Model();
         public List<int> Count(List<string> Words, int ?method = 1)
         {

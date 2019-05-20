@@ -28,14 +28,14 @@ namespace SyllableCounter
                 }
                 else
                 {
-                    WordList.Add(NewWord);
+                    WordList.Add(NewWord.ToLower());
                 }
             }
             while (WordList.Count() < maxWords);
 
             // send words to syllable-counter service
 
-            List<int> SyllableCounts = CounterService.Count(WordList, 1);
+            List<int> SyllableCounts = CounterService.Count(WordList, 2);
 
             // on receiving syllable count, output to user
 
