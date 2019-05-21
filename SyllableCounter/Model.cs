@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
-    class Model
+
+
+    class Model : IModel
     {
 
         public Model()
-        {}
+        { }
 
         public virtual List<int> Count(List<string> Words)
         {
@@ -24,4 +26,5 @@ namespace SyllableCounter
         }
 
     }
+
 }

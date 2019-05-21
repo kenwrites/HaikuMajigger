@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
-    class WrittenMethod : Model
+    class WrittenMethod : IModel
     {
         // This model uses the "Written Method" to count syllables by counting contiguous vowels.
 
         public WrittenMethod()
         {}
 
-        public override List<int> Count(List<string> Words)
+        public List<int> Count(List<string> Words)
         {
             Regex vowel = new Regex("[aeiou]");
             Regex tripthong = new Regex("[aeiou]{3}");
@@ -63,5 +63,5 @@ namespace SyllableCounter
         } // end Count()
 
 
-    }
+    } // end WrittenMethod
 }

@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
-    class CounterService : ISyllableCounter
+    interface ICounterService
     {
-        private readonly Model _modelSim = new Model();  // simulates counting syllables.  For testing only.
-        private readonly Model _modelWritten = new WrittenMethod(); 
-        private readonly Model _model3 = new Model();
-        public List<int> Count(List<string> Words, int ?method = 1)
+        List<int> Count(List<string> Words, int? method);
+    }
+
+    class CounterService : ICounterService
+    {
+        private readonly IModel _modelSim = new Model();  // simulates counting syllables.  For testing only.
+        private readonly IModel _modelWritten = new WrittenMethod(); 
+        private readonly IModel _model3 = new Model();
+
+
+        public List<int> Count(List<string> Words, int? method = 1)
         {
             if (method == 1)
             {
@@ -32,8 +39,5 @@ namespace SyllableCounter
         }
     }
 
-    interface ISyllableCounter
-    {
-        List<int> Count(List<string> Words, int ?method);
-    }
+    
 }

@@ -8,7 +8,7 @@ namespace SyllableCounter
 {
     class Program
     {
-        static readonly ISyllableCounter CounterService = new CounterService();
+        static readonly ICounterService CounterService = new CounterService();
         static void Main()
         {
             // get words from the user
@@ -32,6 +32,9 @@ namespace SyllableCounter
                 }
             }
             while (WordList.Count() < maxWords);
+
+            // TODO:  check for non-word characters in user input
+
 
             // send words to syllable-counter service
 
