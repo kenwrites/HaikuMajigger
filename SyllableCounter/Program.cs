@@ -42,7 +42,7 @@ namespace SyllableCounter
 
             // send words to syllable-counter service
 
-            List<int> SyllableCounts = CounterService.Count(WordList, 2);
+            List<int> SyllableCounts = CounterService.Count(WordList, ModelSelection.Written);
 
             // on receiving syllable count, output to user
 

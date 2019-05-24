@@ -8,32 +8,39 @@ namespace SyllableCounter
 {
     interface ICounterService
     {
-        List<int> Count(List<string> Words, int? method);
+        List<int> Count(List<string> Words, ModelSelection? model);
+    }
+
+    enum ModelSelection
+    {
+        Simulator,
+        Written,
+        Option3
     }
 
     class CounterService : ICounterService
     {
         private readonly IModel _modelSim = new Model();  // simulates counting syllables.  For testing only.
-        private readonly IModel _modelWritten = new WrittenMethod(); 
+        private readonly IModel _modelWritten = new WrittenMethod();  // counts syllables with the "Written Method".  Basically:  counts sets of contiguous vowels.
         private readonly IModel _model3 = new Model();
 
 
-        public List<int> Count(List<string> Words, int? method = 1)
+        public List<int> Count(List<string> Words, ModelSelection? model)
         {
-            if (method == 1)
+            if (model == ModelSelection.Simulator)
             {
                 return _modelSim.Count(Words);
-            } else if ( method == 2)
+            } else if (model == ModelSelection.Written)
             {
                 return _modelWritten.Count(Words);
             }
-            else if (method == 3)
+            else if (model == ModelSelection.Option3)
             {
                 return _model3.Count(Words);
             }
             else
             {
-                Console.WriteLine(method + " is not a valid method.  Enter a whole number from 1 to 3.");
+                Console.WriteLine(model + " is not a valid model selection.");
                 return new List<int>();   
             }
         }
