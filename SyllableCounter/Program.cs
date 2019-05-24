@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
 
 namespace SyllableCounter
 {
@@ -18,6 +20,7 @@ namespace SyllableCounter
             Console.WriteLine("Enter words for which you want to count syllables.  Hit \"enter\" between each.  Write \"count\" after you last word.");
 
             const int maxWords = 100;
+            Regex digits = new Regex("[0-9]");
 
             do
             {
@@ -26,15 +29,16 @@ namespace SyllableCounter
                 {
                     break;
                 }
+                else if (digits.IsMatch(NewWord))
+                {
+                    Console.WriteLine("Please do not enter any words with number characters (i.e. 0-9).");
+                }
                 else
                 {
                     WordList.Add(NewWord.ToLower());
                 }
             }
             while (WordList.Count() < maxWords);
-
-            // TODO:  check for non-word characters in user input
-
 
             // send words to syllable-counter service
 
