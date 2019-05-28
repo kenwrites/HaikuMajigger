@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
-
 namespace SyllableCounter
 {
     class Program
@@ -13,6 +12,7 @@ namespace SyllableCounter
         static readonly ICounterService CounterService = new CounterService();
         static void Main()
         {
+
             //// get words from the user
 
             //List<string> WordList = new List<string>();
@@ -61,14 +61,11 @@ namespace SyllableCounter
 
             //string pause = Console.ReadLine();
 
+            // Convert training data to JSON
+
             List<ITrainingData> trainingData = ModelBuilder.DeserializeIPhodTrainingData();
-            foreach(ITrainingData data in trainingData)
-            {
-                Console.WriteLine(string.Format("{0}, {1}, {2}, {3}", data.Index, data.Word, data.Syllables, data.Phonemes));
-            }
             ModelBuilder.SerializeTrainingDataAsJson(trainingData);
             Console.ReadLine();
-
 
         } // end Main()
     } // end Program
