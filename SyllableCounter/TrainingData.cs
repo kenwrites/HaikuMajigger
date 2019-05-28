@@ -10,12 +10,12 @@ namespace SyllableCounter
 {
     class TrainingData : ITrainingData
     {
-        [Name("Indx")]
+        //[Name("Indx")]
         public int Index { get; set; }
         public string Word { get; set; }
-        [Name("NSyll")]
+        //[Name("NSyll")]
         public int Syllables { get; set; }
-        [Name("NPhon")]
+        //[Name("NPhon")]
         public int Phonemes { get; set; }
     }
 }
