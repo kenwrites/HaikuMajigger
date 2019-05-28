@@ -66,7 +66,9 @@ namespace SyllableCounter
             {
                 Console.WriteLine(string.Format("{0}, {1}, {2}, {3}", data.Index, data.Word, data.Syllables, data.Phonemes));
             }
+            ModelBuilder.SerializeTrainingDataAsJson(trainingData);
             Console.ReadLine();
+
 
         } // end Main()
     } // end Program

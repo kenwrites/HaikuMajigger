@@ -1,10 +1,11 @@
-﻿using CsvHelper;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace SyllableCounter
 {
@@ -17,7 +18,7 @@ namespace SyllableCounter
 
             // Locate Training Data
             var directory = new DirectoryInfo(Directory.GetCurrentDirectory());
-            string path = Path.Combine(directory.FullName, "IPhOD2_Words_short.txt");
+            string path = Path.Combine(directory.FullName, "IPhOD2_Words_take3.csv");
 
             // Read data into memory
 
@@ -62,6 +63,20 @@ namespace SyllableCounter
             } // end trainingData.Add foreach loop
             
             return trainingData;
+        }
+
+        public static void SerializeTrainingDataAsJson(List<ITrainingData> trainingData)
+        {
+            var directory = new DirectoryInfo(Directory.GetCurrentDirectory());
+            string path = Path.Combine(directory.FullName, "training_data.json");
+
+            var serializer = new JsonSerializer();
+
+            using (var textWriter = new StreamWriter(path))
+            using (var jsonWriter = new JsonTextWriter(textWriter))
+            {
+                serializer.Serialize(jsonWriter, trainingData);
+            }
         }
     }
 
