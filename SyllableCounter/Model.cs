@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
-
-
     class Model : IModel
     {
-
         public Model()
         { }
 
