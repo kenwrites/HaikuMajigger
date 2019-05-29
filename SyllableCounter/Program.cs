@@ -103,7 +103,7 @@ namespace SyllableCounter
                         for (int i = 0; i < WordList.Count; i++)
                         {
                             Record _record = new Record();
-                            int _lastID = _history.ReadCounterRecord(1)[0].Id;
+                            int _lastID = _history.ReadCounterRecords(1)[0].Id;
                             _record.Id = _lastID + 1;
                             _record.Word = WordList[i];
                             _record.WrittenMethodGuess = WrittenMethodSyllableCounts[i];
@@ -122,7 +122,36 @@ namespace SyllableCounter
                     // Read History
                     if (choice == 2)
                     {
-
+                        // Validate input
+                        Console.Write("\r\nHow many records do you want to read? ");
+                        if (int.TryParse(Console.ReadLine(), out int numRecords))
+                        {
+                            if (numRecords > 0)
+                            {
+                                // Get record and display them
+                                List<IRecord> _records = _history.ReadCounterRecords(numRecords);
+                                foreach (var record in _records)
+                                {
+                                    Console.WriteLine("\r\nWord: {0} " +
+                                        "\r\nWritten Method Guess: {1} ({2}) " +
+                                        "\r\nClassifier Guess: {3} ({4}) \r\n", 
+                                        record.Word, 
+                                        record.WrittenMethodGuess,
+                                        (record.WrittenMethodCorrect)?"Correct":"Incorrect",
+                                        record.ClassifierGuess,
+                                        (record.ClassifierCorrect) ? "Correct" : "Incorrect");
+                                }
+                            }
+                            // Handle input issues
+                            else
+                            {
+                                Console.WriteLine("\r\nSorry, I cannot retrieve {0} records.  Please enter a whole number greater than 0.", numRecords);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\r\nSorry, there was a problem with your entry.  Please enter a whole number greater than 0.");
+                        }
                     }
                     // Exit
                     if (choice == 3)

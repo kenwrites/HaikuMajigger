@@ -10,45 +10,47 @@ namespace SyllableCounter
 {
     class History
     {
-        private List<Record> _history = new List<Record>();
+        private List<IRecord> _history = new List<IRecord>();
         private string _filePath = Path.Combine(
             Directory.GetCurrentDirectory(),
             "history.json");
         public void DeserializeCounterRecords()
         {
-            var records = new List<Record>();
+            var records = new List<IRecord>();
             var serializer = new JsonSerializer();
 
             using (var reader = new StreamReader(_filePath))
             using (var jsonReader = new JsonTextReader(reader))
             {
-                records = serializer.Deserialize<List<Record>>(jsonReader);
+                records = serializer.
+                    Deserialize<List<Record>>(jsonReader).
+                    ToList<IRecord>();
             }
             _history = records;
         }
 
-        public void AddCounterRecord(Record record)
+        public void AddCounterRecord(IRecord record)
         {
             _history.Add(record);
         }
 
-        public List<Record> ReadCounterRecord(int numRecords)
+        public List<IRecord> ReadCounterRecords(int numRecords)
         {
             // if no records, return a single empty Record
             if (_history.Count == 0)
             {
-                return new List<Record> { new Record() };
+                return new List<IRecord> { new Record() };
             }
 
             // otherwise, return the smaller of:  numRecords, or _history.Count
-            var records = new List<Record>();
+            var _records = new List<IRecord>();
             numRecords = (numRecords <= _history.Count) ? numRecords : _history.Count;
             int lastRecordIndex = _history.Count - 1;
             for (int i = 0; i < numRecords; i++)
             {
-                records.Add(_history[lastRecordIndex - i]);
+                _records.Add(_history[lastRecordIndex - i]);
             }
-            return records;
+            return _records;
         }
 
         public void SerializeCounterRecords()
