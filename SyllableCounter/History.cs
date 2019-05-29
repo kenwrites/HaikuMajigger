@@ -10,38 +10,38 @@ namespace SyllableCounter
 {
     class History
     {
-        private List<IRecord> _history = new List<IRecord>();
+        private List<Record> _history = new List<Record>();
         private string _filePath = Path.Combine(
             Directory.GetCurrentDirectory(),
             "history.json");
-        public List<IRecord> DeserializeCounterRecords()
+        public void DeserializeCounterRecords()
         {
-            var records = new List<IRecord>();
+            var records = new List<Record>();
             var serializer = new JsonSerializer();
 
             using (var reader = new StreamReader(_filePath))
             using (var jsonReader = new JsonTextReader(reader))
             {
-                records = serializer.Deserialize<List<IRecord>>(jsonReader);
+                records = serializer.Deserialize<List<Record>>(jsonReader);
             }
-            return records;
+            _history = records;
         }
 
-        public void AddCounterRecord(IRecord record)
+        public void AddCounterRecord(Record record)
         {
             _history.Add(record);
         }
 
-        public List<IRecord> ReadCounterRecord(int numRecords)
+        public List<Record> ReadCounterRecord(int numRecords)
         {
             // if no records, return a single empty Record
             if (_history.Count == 0)
             {
-                return new List<IRecord> { new Record() };
+                return new List<Record> { new Record() };
             }
 
             // otherwise, return the smaller of:  numRecords, or _history.Count
-            var records = new List<IRecord>();
+            var records = new List<Record>();
             numRecords = (numRecords <= _history.Count) ? numRecords : _history.Count;
             int lastRecordIndex = _history.Count - 1;
             for (int i = 0; i < numRecords; i++)

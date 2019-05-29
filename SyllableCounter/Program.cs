@@ -12,6 +12,10 @@ namespace SyllableCounter
         static readonly ICounterService CounterService = new CounterService();
         static void Main()
         {
+            // Initialize History
+            var _history = new History();
+            _history.DeserializeCounterRecords();
+
             // get words from the user
 
             List<string> WordList = new List<string>();
@@ -82,10 +86,9 @@ namespace SyllableCounter
             }
 
             // Build Record, and add to History
-            var _history = new History();
             for (int i = 0; i < WordList.Count; i++)
             {
-                IRecord _record = new Record();
+                Record _record = new Record();
                 int _lastID = _history.ReadCounterRecord(1)[0].Id;
                 _record.Id = _lastID + 1;
                 _record.Word = WordList[i];
