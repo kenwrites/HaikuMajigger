@@ -4,7 +4,7 @@ A console application for counting the syllables of user-supplied words.
 
 # How do I run it?
 
-After cloning the repository, you'll need to install the Newtonsoft.Json NuGet package.  
+After cloning the repository, you'll need to install the Newtonsoft.Json NuGet package.  Should then run in Visual Studio.
 
 # What is here? 
 
