@@ -24,6 +24,7 @@ namespace SyllableCounter
 
             do
             {
+                Console.Write("Enter word or \"count\": ");
                 string NewWord = Console.ReadLine();
                 if (NewWord.ToLower() == "count")
                 {

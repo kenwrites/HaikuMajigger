@@ -43,10 +43,10 @@ namespace SyllableCounter
             // otherwise, return the smaller of:  numRecords, or _history.Count
             var records = new List<IRecord>();
             numRecords = (numRecords <= _history.Count) ? numRecords : _history.Count;
-            int lastRecord = _history.Count;
+            int lastRecordIndex = _history.Count - 1;
             for (int i = 0; i < numRecords; i++)
             {
-                records.Add(_history[lastRecord - i]);
+                records.Add(_history[lastRecordIndex - i]);
             }
             return records;
         }
