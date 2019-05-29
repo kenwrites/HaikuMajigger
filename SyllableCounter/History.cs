@@ -13,7 +13,7 @@ namespace SyllableCounter
         private List<IRecord> _history = new List<IRecord>();
         private string _filePath = Path.Combine(
             Directory.GetCurrentDirectory(),
-            "counter_history.json");
+            "history.json");
         public List<IRecord> DeserializeCounterRecords()
         {
             var records = new List<IRecord>();
