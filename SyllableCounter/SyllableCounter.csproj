@@ -49,7 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Record.cs" />
     <Compile Include="CounterService.cs" />
+    <Compile Include="History.cs" />
+    <Compile Include="IRecord.cs" />
     <Compile Include="IModel.cs" />
     <Compile Include="ITrainingData.cs" />
     <Compile Include="Model.cs" />

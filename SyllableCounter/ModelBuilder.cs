@@ -11,7 +11,6 @@ namespace SyllableCounter
 {
     class ModelBuilder
     {
-
         public static List<ITrainingData> DeserializeIPhodTrainingData()
         {
             List<ITrainingData> trainingData = new List<ITrainingData>();
