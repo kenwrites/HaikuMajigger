@@ -66,8 +66,7 @@ namespace SyllableCounter
             }
         }
         public List<IWordReportPair> GetUserInput()
-        {
-            // Returns a dictionary where each word is a Key, and each Value is the user's report of the syllable count
+        {           
             var wordReportPairs = new List<IWordReportPair>();
 
             Console.WriteLine("\r\nEnter words for which you want to count syllables.  Hit \"enter\" between each.  Write \"count\" after your last word.  You will also enter the number of syllables you hear in each word, so that we can tell if the program is guessing correctly.");
@@ -75,18 +74,14 @@ namespace SyllableCounter
             const int maxWords = 100;
             Regex digits = new Regex("[0-9]");
 
+            bool keepGettingWords = true;
             do
             {
-                Console.Write("Enter word or \"count\": ");
+                Console.Write("Enter word: ");
                 string NewWord = Console.ReadLine();
 
                 // Validate input 
-                if (NewWord.ToLower() == "count")
-                {
-                    Console.WriteLine();
-                    break;
-                }
-                else if (digits.IsMatch(NewWord))
+                if (digits.IsMatch(NewWord))
                 {
                     Console.WriteLine("Please do not enter any words with number characters (i.e. 0-9).");
                 }
@@ -110,8 +105,37 @@ namespace SyllableCounter
                             Console.Write("Sorry, there was a problem with your entry.  Please enter a whole number greater than 0.");
                         }
                     } while (keepGettingUserReport);
+
+                    // Confirm that user wants to enter another word
+
+                    Console.Write("Enter another word? (Y/n) ");
+                    bool keepConfirmingMoreWords = true;
+                    do
+                    {
+                        string input = Console.ReadLine().ToLower();
+                        if (input == "n" ||
+                            input == "no")
+                        {
+                            keepGettingWords = false;
+                            keepConfirmingMoreWords = false;
+                            continue;
+                        }
+                        else if (input == "y" ||
+                          input == "yes" ||
+                          string.IsNullOrEmpty(input))
+                        {
+                            keepConfirmingMoreWords = false;
+                            continue;
+                        }
+                        else
+                        {
+                            Console.Write("Sorry, there was a problem with your input.  Please enter \"Y\" for yes, \"N\" for no: ");
+                        }
+                    } while (keepConfirmingMoreWords);
                 }
-            } while (wordReportPairs.Count() < maxWords);
+            } while (
+                wordReportPairs.Count() < maxWords && 
+                keepGettingWords);
             return wordReportPairs;
         }
     }    

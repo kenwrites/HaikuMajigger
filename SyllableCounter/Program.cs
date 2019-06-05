@@ -38,7 +38,7 @@ namespace SyllableCounter
             //    WrittenMethodSyllableCounts,
             //    ModelSelection.Option3);
 
-            // on receiving syllable count, output to user
+            // On receiving syllable count, output to user
             Console.WriteLine("According to the \"Written Method\", your words have this many syllables: ");
             foreach (IRecord record in WrittenMethodSyllableCounts)
             {
@@ -52,10 +52,7 @@ namespace SyllableCounter
             }
 
             // Write History to disk
-
             _history.SerializeCounterRecords();
-
-            Console.ReadKey();
         }
 
         static void Main()
