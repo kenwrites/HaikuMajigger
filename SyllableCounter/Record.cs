@@ -10,9 +10,18 @@ namespace SyllableCounter
     {
         public int Id { get; set; }
         public string Word { get; set; }
+        public int SimulatorGuess { get; set; }
         public int WrittenMethodGuess { get; set; }
         public int ClassifierGuess { get; set; }
         public int UserReport { get; set; }
+        public bool SimulatorGuessCorrect
+        {
+            get
+            {
+                return (SimulatorGuess == UserReport);
+            }
+        }
+
         public bool WrittenMethodCorrect { get
             {
                 return (WrittenMethodGuess == UserReport);
@@ -24,5 +33,15 @@ namespace SyllableCounter
             }
         }
 
+        public Record(IWordReportPair pair)
+        {
+            Word = pair.Word;
+            UserReport = pair.UserReport;
+        }
+
+        public Record()
+        {
+
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace SyllableCounter
         private string _filePath = Path.Combine(
             Directory.GetCurrentDirectory(),
             "history.json");
+
         public void DeserializeCounterRecords()
         {
             var records = new List<IRecord>();
@@ -22,9 +23,12 @@ namespace SyllableCounter
             using (var reader = new StreamReader(_filePath))
             using (var jsonReader = new JsonTextReader(reader))
             {
-                records = serializer.
-                    Deserialize<List<Record>>(jsonReader).
-                    ToList<IRecord>();
+                if (File.Exists(_filePath))
+                {
+                    records = serializer.
+                        Deserialize<List<Record>>(jsonReader).
+                        ToList<IRecord>();
+                }               
             }
             _history = records;
         }
@@ -37,16 +41,15 @@ namespace SyllableCounter
         public List<IRecord> ReadCounterRecords(int numRecords)
         {
             // if no records, return a single empty Record
-            if (_history.Count == 0)
+            if (!_history.Any())
             {
                 return new List<IRecord> { new Record() };
             }
 
             // otherwise, return the smaller of:  numRecords, or _history.Count
             var _records = new List<IRecord>();
-            numRecords = (numRecords <= _history.Count) ? numRecords : _history.Count;
             int lastRecordIndex = _history.Count - 1;
-            for (int i = 0; i < numRecords; i++)
+            for (int i = 0; i < numRecords && i < _history.Count; i++)
             {
                 _records.Add(_history[lastRecordIndex - i]);
             }
@@ -61,6 +64,40 @@ namespace SyllableCounter
             using (var jsonWriter = new JsonTextWriter(writer))
             {
                 serializer.Serialize(jsonWriter, _history);
+            }
+        }
+
+        public void PrintRecords()
+        {
+            // Validate input
+            Console.Write("\r\nHow many records do you want to read? ");
+            if (int.TryParse(Console.ReadLine(), out int numRecords))
+            {
+                if (numRecords > 0)
+                {
+                    // Get record and display them
+                    List<IRecord> _records = ReadCounterRecords(numRecords);
+                    foreach (var record in _records)
+                    {
+                        Console.WriteLine("\r\nWord: {0} " +
+                            "\r\nWritten Method Guess: {1} ({2}) " +
+                            "\r\nClassifier Guess: {3} ({4}) \r\n",
+                            record.Word,
+                            record.WrittenMethodGuess,
+                            (record.WrittenMethodCorrect) ? "Correct" : "Incorrect",
+                            record.ClassifierGuess,
+                            (record.ClassifierCorrect) ? "Correct" : "Incorrect");
+                    }
+                }
+                // Handle input issues
+                else
+                {
+                    Console.WriteLine("\r\nSorry, I cannot retrieve {0} records.  Please enter a whole number greater than 0.", numRecords);
+                }
+            }
+            else
+            {
+                Console.WriteLine("\r\nSorry, there was a problem with your entry.  Please enter a whole number greater than 0.");
             }
         }
     }

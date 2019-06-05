@@ -11,15 +11,14 @@ namespace SyllableCounter
         public Model()
         { }
 
-        public virtual List<int> Count(List<string> Words)
+        public virtual List<IRecord> Count(List<IRecord> Words)
         {
             // simulate counting syllables
-            var counts = new List<int>();
-            foreach (string word in Words)
+            foreach (IRecord word in Words)
             {
-                counts.Add(2);
+                word.SimulatorGuess = 2;
             }
-            return counts;
+            return Words;
         }
 
     }

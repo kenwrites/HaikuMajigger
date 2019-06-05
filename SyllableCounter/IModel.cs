@@ -8,6 +8,6 @@ namespace SyllableCounter
 {
     interface IModel
     {
-        List<int> Count(List<string> Words);
+        List<IRecord> Count(List<IRecord> Words);
     }
 }
