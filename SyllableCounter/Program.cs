@@ -11,7 +11,52 @@ namespace SyllableCounter
     {
         static readonly ICounterService counterService = new CounterService();
 
-        static CountSyllables();
+        static void CountSyllables(History _history)
+        {
+            // get words from the user
+            List<IWordReportPair> wordReportPairs = counterService.GetUserInput();
+            // convert to Records
+            List<IRecord> userRecords = new List<IRecord>();
+            foreach (IWordReportPair pair in wordReportPairs)
+            {
+                userRecords.Add(new Record(pair));
+            }
+
+            // send Records to syllable-counter service
+
+            List<IRecord> SimulatedSyllableCounts = counterService.Count(
+                userRecords,
+                ModelSelection.Simulator);
+
+            List<IRecord> WrittenMethodSyllableCounts = counterService.Count(
+                SimulatedSyllableCounts,
+                ModelSelection.Written);
+
+            // Below code will call machine-learning syllable counter model, when it's ready
+
+            //List<IRecord> ClassifierSyllableCounts = counterService.Count(
+            //    WrittenMethodSyllableCounts,
+            //    ModelSelection.Option3);
+
+            // on receiving syllable count, output to user
+            Console.WriteLine("According to the \"Written Method\", your words have this many syllables: ");
+            foreach (IRecord record in WrittenMethodSyllableCounts)
+            {
+                Console.WriteLine($"{record.Word} has {record.WrittenMethodGuess} syllables.  ({record.WrittenMethodCorrect})");
+            }
+
+            // Add to History
+            foreach (IRecord record in WrittenMethodSyllableCounts)
+            {
+                _history.AddCounterRecord(record);
+            }
+
+            // Write History to disk
+
+            _history.SerializeCounterRecords();
+
+            Console.ReadKey();
+        }
 
         static void Main()
         {
@@ -33,50 +78,7 @@ namespace SyllableCounter
                     // Count Syllables
                     if (choice == 1)
                     {
-                        // get words from the user
-                        List<IWordReportPair> wordReportPairs = counterService.GetUserInput();
-                        // convert to Records
-                        List<IRecord> userRecords = new List<IRecord>();
-                        foreach (IWordReportPair pair in wordReportPairs)
-                        {
-                            userRecords.Add(new Record(pair));
-                        }
-
-                        // send Records to syllable-counter service
-
-                        List<IRecord> SimulatedSyllableCounts = counterService.Count(
-                            userRecords, 
-                            ModelSelection.Simulator);
-
-                        List<IRecord> WrittenMethodSyllableCounts = counterService.Count(
-                            SimulatedSyllableCounts,
-                            ModelSelection.Written);
-
-                        // Below code will call machine-learning syllable counter model, when it's ready
-
-                        //List<IRecord> ClassifierSyllableCounts = counterService.Count(
-                        //    WrittenMethodSyllableCounts,
-                        //    ModelSelection.Option3);
-
-                        // on receiving syllable count, output to user
-                        Console.WriteLine("According to the \"Written Method\", your words have this many syllables: ");
-                        foreach (IRecord record in WrittenMethodSyllableCounts)
-                        {
-                            Console.WriteLine($"{record.Word} has {record.WrittenMethodGuess} syllables.  ({record.WrittenMethodCorrect})");
-                        }
-
-                        // Add to History
-                        foreach (IRecord record in WrittenMethodSyllableCounts)
-                        {
-                            _history.AddCounterRecord(record);
-                        }
-
-                        // Write History to disk
-
-                        _history.SerializeCounterRecords();
-
-                        Console.ReadKey();
-
+                        CountSyllables(_history);
                     }
                     // Read History
                     if (choice == 2)
