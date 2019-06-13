@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
+    /// <summary>
+    /// A record of user-input words and associated syllable counts.  
+    /// </summary>
     class Record : IRecord
     {
         public int Id { get; set; }

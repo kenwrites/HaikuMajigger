@@ -19,6 +19,9 @@ namespace SyllableCounter
         int UserReport { get; set; }
     }
 
+    /// <summary>
+    /// User-input word and the user's report of how many syllables the word has.
+    /// </summary>
     class WordReportPair : IWordReportPair
     {
         public string Word { get; set; }
@@ -38,6 +41,9 @@ namespace SyllableCounter
         Option3
     }
 
+    /// <summary>
+    /// Contains and interacts with the different syllable counting models that are available.
+    /// </summary>
     class CounterService : ICounterService
     {
         // Initialize Models
@@ -46,6 +52,13 @@ namespace SyllableCounter
         private readonly IModel _model3 = new Model();
 
         // Methods
+
+            /// <summary>
+            /// Sends the given word list to the selected model, and returns that list with syllable counts added for that model.  
+            /// </summary>
+            /// <param name="Words"></param>
+            /// <param name="model"></param>
+            /// <returns></returns>
         public List<IRecord> Count(List<IRecord> Words, ModelSelection? model)
         {
             if (model == ModelSelection.Simulator)
@@ -65,6 +78,10 @@ namespace SyllableCounter
                 return new List<IRecord>();   
             }
         }
+        /// <summary>
+        /// Gets list of words from user along with user reports of how many syllables each word has.
+        /// </summary>
+        /// <returns></returns>
         public List<IWordReportPair> GetUserInput()
         {           
             var wordReportPairs = new List<IWordReportPair>();

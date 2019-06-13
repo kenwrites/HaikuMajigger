@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
+    /// <summary>
+    /// This model uses the "Written Method" to count syllables by counting contiguous vowels.
+    /// </summary>
     class WrittenMethod : IModel
     {
-        // This model uses the "Written Method" to count syllables by counting contiguous vowels.
-
         public WrittenMethod()
         {}
 

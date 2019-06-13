@@ -9,12 +9,18 @@ namespace SyllableCounter
 {
     class Program
     {
+        
         static readonly ICounterService counterService = new CounterService();
 
+        /// <summary>
+        /// Gets words from user, converts words to records, and sends records to syllable-counter service.  On receiving counts from service, displays counts to user and adds the to history.  
+        /// </summary>
+        /// <param name="_history">The History object.</param>
         static void CountSyllables(History _history)
         {
             // get words from the user
             List<IWordReportPair> wordReportPairs = counterService.GetUserInput();
+
             // convert to Records
             List<IRecord> userRecords = new List<IRecord>();
             foreach (IWordReportPair pair in wordReportPairs)
@@ -94,13 +100,6 @@ namespace SyllableCounter
                     Console.WriteLine("Sorry, there was a problem with your input.  Please enter 1, 2, or 3. \r\n");
                 }
             } while (keepPromptingUserChoice);
-
-            // Convert training data to JSON
-
-            //List<ITrainingData> trainingData = ModelBuilder.DeserializeIPhodTrainingData();
-            //ModelBuilder.SerializeTrainingDataAsJson(trainingData);
-            //Console.ReadLine();
-
         } // end Main()
     } // end Program
 }  // end namespace

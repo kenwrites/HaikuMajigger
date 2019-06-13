@@ -9,8 +9,12 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
+    /// <summary>
+    /// Tools for building machine-learning models for counting syllables.  
+    /// </summary>
     class ModelBuilder
     {
+        // IPhod methods.  Used in data preparation for machine learning model.  Not used in program itself.
         public static List<ITrainingData> DeserializeIPhodTrainingData()
         {
             List<ITrainingData> trainingData = new List<ITrainingData>();
@@ -43,8 +47,10 @@ namespace SyllableCounter
                 }
 
                 // assign to trainingData
-                ITrainingData data = new TrainingData();
-                data.Word = items[1];
+                ITrainingData data = new TrainingData
+                {
+                    Word = items[1]
+                };
                 if (int.TryParse(items[0], out int index))
                 {
                     data.Index = index;
@@ -63,7 +69,6 @@ namespace SyllableCounter
             
             return trainingData;
         }
-
         public static void SerializeTrainingDataAsJson(List<ITrainingData> trainingData)
         {
             var directory = new DirectoryInfo(Directory.GetCurrentDirectory());

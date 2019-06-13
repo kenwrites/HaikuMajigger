@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
+    /// <summary>
+    /// Maintains the history of user-input words and the syllable counts from all counting models.
+    /// </summary>
     class History
     {
         private List<IRecord> _history = new List<IRecord>();
-        private string _filePath = Path.Combine(
+        private readonly string _filePath = Path.Combine(
             Directory.GetCurrentDirectory(),
             "history.json");
 
@@ -67,6 +70,9 @@ namespace SyllableCounter
             }
         }
 
+        /// <summary>
+        /// Output records to user via Console.
+        /// </summary>
         public void PrintRecords()
         {
             // Validate input

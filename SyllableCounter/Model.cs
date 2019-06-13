@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
+    /// <summary>
+    /// A Model is a way of counting syllables.  Unless overriden, the default behavior just returns '2' for each word.  This is for testing purposes.  Override this behavior when implementing a new model.  
+    /// </summary>
     class Model : IModel
     {
         public Model()
