@@ -6,7 +6,7 @@ A console application for counting the syllables of user-supplied words.
 
 After cloning the repository, you'll need to install the Newtonsoft.Json NuGet package.  Should then run in Visual Studio.
 
-Alternatively, you can download the Release.zip file, unzip it, and run "SyllableCounter.exe".
+Alternatively, you can download the Release.zip file, unzip it, and run "SyllableCounter.exe".  If you are not on a Windows machine, you'll need to use Mono to run the .exe file.
 
 # What is here? 
 
