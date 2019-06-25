@@ -9,7 +9,7 @@ namespace SyllableCounter
     /// <summary>
     /// A record of user-input words and associated syllable counts.  
     /// </summary>
-    class Record : IRecord
+    public class Record : IRecord
     {
         public int Id { get; set; }
         public string Word { get; set; }
@@ -30,7 +30,8 @@ namespace SyllableCounter
                 return (WrittenMethodGuess == UserReport);
             }
         }
-        public bool ClassifierCorrect { get
+        public bool ClassifierCorrect
+        { get
             {
                 return (ClassifierGuess == UserReport);
             }

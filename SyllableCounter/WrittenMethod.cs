@@ -43,7 +43,7 @@ namespace SyllableCounter
 
                 if (record.Word.EndsWith("e"))
                 {
-                    syllables += 1;
+                    syllables -= 1;
                 }
 
                 // Subtract dipthongs and tripthongs (when 2 or 3 vowels make only 1 sound, like the "ea" in "heaven")               

@@ -1,0 +1,35 @@
+[
+  {
+    "Id": 1,
+    "Word": "abra",
+    "SimulatorGuess": 0,
+    "WrittenMethodGuess": 2,
+    "ClassifierGuess": 2,
+    "UserReport": 2,
+    "SimulatorGuessCorrect": false,
+    "WrittenMethodCorrect": true,
+    "ClassifierCorrect": true
+  },
+  {
+    "Id": 2,
+    "Word": "testTESTtest",
+    "SimulatorGuess": 0,
+    "WrittenMethodGuess": 1,
+    "ClassifierGuess": 2,
+    "UserReport": 1,
+    "SimulatorGuessCorrect": false,
+    "WrittenMethodCorrect": true,
+    "ClassifierCorrect": false
+  },
+  {
+    "Id": 3,
+    "Word": "abra",
+    "SimulatorGuess": 0,
+    "WrittenMethodGuess": 2,
+    "ClassifierGuess": 2,
+    "UserReport": 2,
+    "SimulatorGuessCorrect": false,
+    "WrittenMethodCorrect": true,
+    "ClassifierCorrect": true
+  }
+]

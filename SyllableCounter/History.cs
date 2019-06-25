@@ -11,29 +11,43 @@ namespace SyllableCounter
     /// <summary>
     /// Maintains the history of user-input words and the syllable counts from all counting models.
     /// </summary>
-    class History
+    public class History
     {
         private List<IRecord> _history = new List<IRecord>();
         private readonly string _filePath = Path.Combine(
             Directory.GetCurrentDirectory(),
             "history.json");
 
-        public void DeserializeCounterRecords()
+        /// <summary>
+        /// Deserializes counter records.
+        /// </summary>
+        /// <param name="path">Optional path to the history file.  If no file path provided, path defaults to "history.json" in current directory.</param>
+        public void DeserializeCounterRecords(string path = null)
         {
+            // Set default if path is null
+            path = (path == null) ? _filePath : path;
+
             var records = new List<IRecord>();
             var serializer = new JsonSerializer();
 
-            using (var reader = new StreamReader(_filePath))
-            using (var jsonReader = new JsonTextReader(reader))
+            // Check to make sure file exists
+            if (File.Exists(path))
             {
-                if (File.Exists(_filePath))
+                // Deserialize
+                using (var reader = new StreamReader(path))
+                using (var jsonReader = new JsonTextReader(reader))
                 {
-                    records = serializer.
-                        Deserialize<List<Record>>(jsonReader).
-                        ToList<IRecord>();
-                }               
+                    if (File.Exists(path))
+                    {
+                        records = serializer.
+                            Deserialize<List<Record>>(jsonReader).
+                            ToList<IRecord>();
+                    }
+                }
             }
+
             _history = records;
+
         }
 
         public void AddCounterRecord(IRecord record)
@@ -56,14 +70,23 @@ namespace SyllableCounter
             {
                 _records.Add(_history[lastRecordIndex - i]);
             }
+
             return _records;
         }
 
-        public void SerializeCounterRecords()
+        public List<IRecord> ReturnAllRecordsForTesting()
         {
+            return _history;
+        }
+
+        public void SerializeCounterRecords(string path = null)
+        {
+            // Set default if path is null
+            path = (path == null) ? _filePath : path;
+
             var serializer = new JsonSerializer();
 
-            using (var writer = new StreamWriter(_filePath)) 
+            using (var writer = new StreamWriter(path)) 
             using (var jsonWriter = new JsonTextWriter(writer))
             {
                 serializer.Serialize(jsonWriter, _history);

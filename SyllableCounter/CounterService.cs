@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace SyllableCounter
 {
-    interface ICounterService
+    public interface ICounterService
     {
         List<IRecord> Count(List<IRecord> Words, ModelSelection? model);
         List<IWordReportPair> GetUserInput();
     }
 
-    interface IWordReportPair
+    public interface IWordReportPair
     {
         string Word { get; set; }
         int UserReport { get; set; }
@@ -22,7 +22,7 @@ namespace SyllableCounter
     /// <summary>
     /// User-input word and the user's report of how many syllables the word has.
     /// </summary>
-    class WordReportPair : IWordReportPair
+    public class WordReportPair : IWordReportPair
     {
         public string Word { get; set; }
         public int UserReport { get; set; }
@@ -34,7 +34,7 @@ namespace SyllableCounter
         }
     }
 
-    enum ModelSelection
+    public enum ModelSelection
     {
         Simulator,
         Written,
@@ -44,7 +44,7 @@ namespace SyllableCounter
     /// <summary>
     /// Contains and interacts with the different syllable counting models that are available.
     /// </summary>
-    class CounterService : ICounterService
+    public class CounterService : ICounterService
     {
         // Initialize Models
         private readonly IModel _modelSim = new Model();  // simulates counting syllables.  For testing only.
@@ -155,5 +155,5 @@ namespace SyllableCounter
                 keepGettingWords);
             return wordReportPairs;
         }
-    }    
+    }
 }

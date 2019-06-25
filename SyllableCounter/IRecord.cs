@@ -1,6 +1,6 @@
 ﻿namespace SyllableCounter
 {
-    interface IRecord
+    public interface IRecord
     {
         int Id { get; set; }
         int ClassifierGuess { get; set; }
